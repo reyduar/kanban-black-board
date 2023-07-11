@@ -7,6 +7,8 @@ import "primereact/resources/primereact.css";
 import "primeflex/primeflex.css";
 import "primeicons/primeicons.css";
 import "../styles/layout/layout.scss";
+import { UIProvider } from "@/ui";
+import { EntriesProvider } from "@/kanban/context";
 
 type Props = AppProps & {
   Component: Page;
@@ -21,11 +23,15 @@ export default function App({ Component, pageProps }: Props) {
     );
   } else {
     return (
-      <LayoutProvider>
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
-      </LayoutProvider>
+      <UIProvider>
+        <LayoutProvider>
+          <EntriesProvider>
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          </EntriesProvider>
+        </LayoutProvider>
+      </UIProvider>
     );
   }
 }

@@ -1,4 +1,4 @@
-# Kanban Back Board
+# Kanban Black Board
 
 This is a project created by Next.js 13 and PrimeReact.
 

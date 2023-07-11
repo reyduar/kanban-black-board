@@ -14,11 +14,11 @@ export const LayoutProvider = ({ children }: ChildContainerProps) => {
     menuMode: "static",
     colorScheme: "dark",
     theme: "lara-dark-blue",
-    scale: 13,
+    scale: 14,
   });
 
   const [layoutState, setLayoutState] = useState<LayoutState>({
-    staticMenuDesktopInactive: false,
+    staticMenuDesktopInactive: true,
     overlayMenuActive: false,
     profileSidebarVisible: false,
     configSidebarVisible: false,

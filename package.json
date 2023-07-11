@@ -18,15 +18,19 @@
     "@types/react-dom": "18.2.6",
     "eslint": "8.44.0",
     "eslint-config-next": "13.4.9",
+    "lodash": "^4.17.21",
     "next": "13.4.9",
+    "primeflex": "3.3.0",
+    "primeicons": "^6.0.1",
+    "primereact": "9.2.3",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "typescript": "5.1.6",
-    "primeflex": "3.3.0",
-    "primeicons": "^6.0.1",
-    "primereact": "9.2.3"
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.195",
+    "@types/uuid": "^9.0.2",
     "sass": "^1.58.3"
   }
 }

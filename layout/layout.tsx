@@ -146,15 +146,18 @@ const Layout = ({ children }: ChildContainerProps) => {
   return (
     <React.Fragment>
       <Head>
-        <title>Sandboxui by Rialto</title>
+        <title>Kanban Black Board</title>
         <meta charSet="UTF-8" />
         <meta name="robots" content="index, follow" />
         <meta name="viewport" content="initial-scale=1, width=device-width" />
         <meta property="og:type" content="website"></meta>
-        <meta property="og:title" content="Sandboxui by Rialto"></meta>
+        <meta
+          property="og:title"
+          content="Kanban black board by Ariel Duarte"
+        ></meta>
         <meta
           property="og:url"
-          content="https://www.primefaces.org/sakai-react"
+          content="https://github.com/reyduar/kanban-black-board"
         ></meta>
         <meta property="og:ttl" content="604800"></meta>
         <link rel="icon" href={`/favicon.ico`} type="image/x-icon"></link>

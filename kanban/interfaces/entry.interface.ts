@@ -3,7 +3,8 @@ export type EntryStatus = "pending" | "in-progress" | "finished";
 export interface Entry {
   _id: string;
   name: string;
-  descriptions: Description[];
+  description: string;
+  subtasks: Subtasks[];
   createdAt: number;
   status: EntryStatus;
   label?: string;
@@ -19,10 +20,10 @@ export interface EntryCardProps {
 }
 
 export interface SubtasksProps {
-  subtasks: Description[];
+  subtasks: Subtasks[];
 }
 
-export interface Description {
+export interface Subtasks {
   _id: string;
   description: string;
 }

@@ -3,6 +3,7 @@ import { EntriesState } from ".";
 import { Entry } from "../interfaces";
 
 type EntriesActionType =
+  | { type: "[Entry] Load-Entries"; payload: Entry[] }
   | { type: "[Entry] Create-Entry"; payload: Entry }
   | { type: "[Entry] Update-Entry"; payload: Entry }
   | { type: "[Entry] Start-Dragging" }
@@ -15,6 +16,8 @@ export const entriesReducer = (
   action: EntriesActionType
 ): EntriesState => {
   switch (action.type) {
+    case "[Entry] Load-Entries":
+      return { ...state, entries: [...action.payload] };
     case "[Entry] Create-Entry":
       return { ...state, entries: [...state.entries, action.payload] };
     case "[Entry] Update-Entry":

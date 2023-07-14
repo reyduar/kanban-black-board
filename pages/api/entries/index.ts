@@ -2,10 +2,7 @@ import { db } from "@/database";
 import { Entry, IEntry } from "@/models";
 import type { NextApiRequest, NextApiResponse } from "next";
 
-type Data = {
-  message: string;
-  entries?: IEntry[];
-};
+type Data = { message: string } | IEntry[] | IEntry;
 
 export default function handler(
   req: NextApiRequest,
@@ -24,5 +21,5 @@ async function getEnabledCategories(res: NextApiResponse<Data>) {
 
   const entries = await Entry.find().sort({ createdAt: "ascending" });
   await db.disconnect();
-  return res.status(200).json({ message: "Success", entries });
+  return res.status(200).json(entries);
 }

@@ -1,8 +1,9 @@
-import { useReducer } from "react";
+import { useEffect, useReducer } from "react";
 import { v4 as uuid } from "uuid";
 import { EntriesContext, entriesReducer } from "./";
 import { ChildContainerProps } from "@/types/types";
 import { Entry } from "@/kanban/interfaces";
+import { entriesApi } from "@/services";
 
 export interface EntriesState {
   isDragging: boolean;
@@ -57,6 +58,15 @@ export const EntriesProvider = ({ children }: ChildContainerProps) => {
   const endDragging = () => {
     dispatch({ type: "[Entry] End-Dragging" });
   };
+
+  const refreshEntries = async () => {
+    const { data } = await entriesApi.get<Entry[]>("/entries");
+    dispatch({ type: "[Entry] Load-Entries", payload: data });
+  };
+
+  useEffect(() => {
+    refreshEntries();
+  }, []);
 
   return (
     <EntriesContext.Provider

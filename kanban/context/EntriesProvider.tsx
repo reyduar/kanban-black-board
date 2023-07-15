@@ -20,27 +20,39 @@ const ENTRIES_INITIAL_STATE: EntriesState = {
 export const EntriesProvider = ({ children }: ChildContainerProps) => {
   const [state, dispatch] = useReducer(entriesReducer, ENTRIES_INITIAL_STATE);
 
-  const createEntry = (name: string) => {
-    const newEntry: Entry = {
-      _id: uuid(),
+  const createEntry = async (name: string) => {
+    const newEntry = {
       name,
       description:
         "UI ipsum dolor sit, amet consectetur adipisicing elit. Velit numquam eligendi quos.",
-      subtasks: [
-        { _id: uuid(), description: "Subtask 1" },
-        { _id: uuid(), description: "Subtask 2" },
-        { _id: uuid(), description: "Subtask 3" },
-      ],
+      subtasks: [],
       label: "UI",
-      createdAt: Date.now(),
-      status: "pending",
     };
 
-    dispatch({ type: "[Entry] Create-Entry", payload: newEntry });
+    const { data } = await entriesApi.post<Entry>("entries", newEntry);
+    dispatch({ type: "[Entry] Create-Entry", payload: data });
   };
 
-  const updateEntry = (entry: Entry) => {
-    dispatch({ type: "[Entry] Update-Entry", payload: entry });
+  const updateEntry = async ({
+    _id,
+    name,
+    description,
+    subtasks,
+    label,
+    status,
+  }: Entry) => {
+    try {
+      const { data } = await entriesApi.put<Entry>(`entries/${_id}`, {
+        name,
+        description,
+        subtasks,
+        label,
+        status,
+      });
+      dispatch({ type: "[Entry] Update-Entry", payload: data });
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const showModalEntry = () => {
@@ -60,7 +72,7 @@ export const EntriesProvider = ({ children }: ChildContainerProps) => {
   };
 
   const refreshEntries = async () => {
-    const { data } = await entriesApi.get<Entry[]>("/entries");
+    const { data } = await entriesApi.get<Entry[]>("entries");
     dispatch({ type: "[Entry] Load-Entries", payload: data });
   };
 

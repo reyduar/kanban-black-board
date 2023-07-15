@@ -19,14 +19,13 @@ const ENTRIES_INITIAL_STATE: EntriesState = {
 
 export const EntriesProvider = ({ children }: ChildContainerProps) => {
   const [state, dispatch] = useReducer(entriesReducer, ENTRIES_INITIAL_STATE);
-
-  const createEntry = async (name: string) => {
+  const createEntry = async ({ name, description, label, status }: Entry) => {
     const newEntry = {
       name,
-      description:
-        "UI ipsum dolor sit, amet consectetur adipisicing elit. Velit numquam eligendi quos.",
+      description,
       subtasks: [],
-      label: "UI",
+      label,
+      status,
     };
 
     const { data } = await entriesApi.post<Entry>("entries", newEntry);
@@ -50,6 +49,15 @@ export const EntriesProvider = ({ children }: ChildContainerProps) => {
         status,
       });
       dispatch({ type: "[Entry] Update-Entry", payload: data });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const deleteEntry = async ({ _id }: Entry) => {
+    try {
+      const { data } = await entriesApi.delete<Entry>(`entries/${_id}`);
+      dispatch({ type: "[Entry] Delete-Entry", payload: data });
     } catch (error) {
       console.error(error);
     }
@@ -86,6 +94,7 @@ export const EntriesProvider = ({ children }: ChildContainerProps) => {
         ...state,
         createEntry,
         updateEntry,
+        deleteEntry,
         showModalEntry,
         closeModalEntry,
         startDragging,

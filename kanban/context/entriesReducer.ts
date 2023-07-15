@@ -6,6 +6,7 @@ type EntriesActionType =
   | { type: "[Entry] Load-Entries"; payload: Entry[] }
   | { type: "[Entry] Create-Entry"; payload: Entry }
   | { type: "[Entry] Update-Entry"; payload: Entry }
+  | { type: "[Entry] Delete-Entry"; payload: Entry }
   | { type: "[Entry] Start-Dragging" }
   | { type: "[Entry] End-Dragging" }
   | { type: "[Entry] Show-Modal" }
@@ -29,6 +30,13 @@ export const entriesReducer = (
           }
           return entry;
         }),
+      };
+    case "[Entry] Delete-Entry":
+      return {
+        ...state,
+        entries: state.entries.filter(
+          (entry) => !eq(entry._id, action.payload._id)
+        ),
       };
     case "[Entry] Start-Dragging":
       return { ...state, isDragging: true };

@@ -4,9 +4,9 @@ export interface Entry {
   _id: string;
   name: string;
   description: string;
-  subtasks: Subtasks[];
-  createdAt: number;
   status: EntryStatus;
+  createdAt?: number;
+  subtasks?: Subtasks[];
   label?: string;
 }
 

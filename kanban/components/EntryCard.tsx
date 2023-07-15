@@ -3,16 +3,22 @@ import { Button } from "primereact/button";
 import SubtaskList from "./SubtaskList";
 import { EntryCardProps } from "../interfaces";
 import { EntriesContext } from "../context";
+import { useRouter } from "next/router";
 
 function EntryCard({ content }: EntryCardProps) {
+  const router = useRouter();
   const { isDragging, startDragging, endDragging } = useContext(EntriesContext);
   const { label, name, createdAt, description, subtasks } = content;
-  const dateAt = new Date(createdAt);
+  const dateAt = new Date(createdAt!);
   const createdAtToString = dateAt.toDateString();
 
   const onDragStart = (event: DragEvent<HTMLDivElement>) => {
     event.dataTransfer.setData("text", content._id);
     startDragging();
+  };
+
+  const editEntryPage = () => {
+    router.push(`/entries/${content._id}`);
   };
 
   return (
@@ -40,14 +46,7 @@ function EntryCard({ content }: EntryCardProps) {
             severity="info"
             aria-label="Edit"
             size="small"
-          />
-          <Button
-            icon="pi pi-times"
-            rounded
-            text
-            severity="danger"
-            aria-label="Delete"
-            size="small"
+            onClick={editEntryPage}
           />
         </div>
         <div className="mt-2">

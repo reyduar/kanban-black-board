@@ -7,8 +7,9 @@ interface ContextProps {
   entries: Entry[];
 
   // Methods
-  createEntry: (name: string) => void;
+  createEntry: (entry: Entry) => void;
   updateEntry: (entry: Entry) => void;
+  deleteEntry: (entry: Entry) => void;
   showModalEntry: () => void;
   closeModalEntry: () => void;
   startDragging: () => void;

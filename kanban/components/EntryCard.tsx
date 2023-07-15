@@ -4,6 +4,7 @@ import SubtaskList from "./SubtaskList";
 import { EntryCardProps } from "../interfaces";
 import { EntriesContext } from "../context";
 import { useRouter } from "next/router";
+import { dateFunctions } from "@/utils";
 
 function EntryCard({ content }: EntryCardProps) {
   const router = useRouter();
@@ -50,7 +51,9 @@ function EntryCard({ content }: EntryCardProps) {
           />
         </div>
         <div className="mt-2">
-          <span className="font-medium text-600">{createdAtToString}</span>
+          <span className="font-medium text-600">
+            {dateFunctions.getFormatDistanceToNow(createdAt!)}
+          </span>
         </div>
       </div>
     </div>

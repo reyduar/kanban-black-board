@@ -9,6 +9,7 @@ import "primeicons/primeicons.css";
 import "../styles/layout/layout.scss";
 import { UIProvider } from "@/ui";
 import { EntriesProvider } from "@/kanban/context";
+import { AuthProvider } from "@/auth/context";
 
 type Props = AppProps & {
   Component: Page;
@@ -23,15 +24,17 @@ export default function App({ Component, pageProps }: Props) {
     );
   } else {
     return (
-      <UIProvider>
-        <LayoutProvider>
-          <EntriesProvider>
-            <Layout>
-              <Component {...pageProps} />
-            </Layout>
-          </EntriesProvider>
-        </LayoutProvider>
-      </UIProvider>
+      <AuthProvider>
+        <UIProvider>
+          <LayoutProvider>
+            <EntriesProvider>
+              <Layout>
+                <Component {...pageProps} />
+              </Layout>
+            </EntriesProvider>
+          </LayoutProvider>
+        </UIProvider>
+      </AuthProvider>
     );
   }
 }
